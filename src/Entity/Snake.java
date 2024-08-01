@@ -2,19 +2,21 @@ package Entity;
 
 
 import java.awt.*;
+import domain.Configs;
 import domain.Direction;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 
 public class Snake   {
-    static final int SNAKE_HEAD = 0;
-    static final int bodyParts = 6;
-    int GAME_UNITS;
+    static final int SCREEN_WIDTH = Configs.SCREEN_WIDTH;
+    static final int SCREEN_HEIGHT = Configs.SCREEN_HEIGHT;
+    static final int UNIT_SIZE = Configs.UNIT_SIZE;
+    static final int DELAY= Configs.DELAY;
+    static final int SNAKE_HEAD = Configs.SNAKE_HEAD;
+    static final int GAME_UNITS = Configs.GAME_UNITS;
+
+
+    public int bodyParts = 6;
     int[] x;
     int[] y;
-    int UNIT_SIZE;
     Direction direction;
     public Direction getDirection() {
         return direction;
@@ -25,17 +27,34 @@ public class Snake   {
     }
 
 
+    public int getBodyParts() {
+        return bodyParts;
+    }
 
-    public Snake(int UNIT_SIZE, int GAME_UNITS) {
+    public void increaseBodyParts() {
+        this.bodyParts++;
+    }
+    public int getHeadX(){
+        return x[SNAKE_HEAD];
+    }
+    public int getHeadY(){
+        return y[SNAKE_HEAD];
+    }
+    public int getBodyX(int i){
+        return x[i];
+    }
+    public int getBodyY(int i){
+        return y[i];
+    }
+    public Snake() {
         direction = Direction.RIGHT;
-        this.GAME_UNITS = GAME_UNITS;
         x = new int[GAME_UNITS];
         y = new int[GAME_UNITS];
-        this.UNIT_SIZE = UNIT_SIZE;
+
     }
 
 
-    public void draw(Graphics g, int UNIT_SIZE) {
+    public void draw(Graphics g) {
         for (int i = 0; i < bodyParts; i++) {
             if (i == SNAKE_HEAD) {
                 g.setColor(Color.GREEN);
@@ -69,5 +88,6 @@ public class Snake   {
                 break;
         }
     }
+
 
 }

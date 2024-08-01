@@ -1,11 +1,15 @@
-import javax.swing.*;
+import UI.GameFrame;
+import UI.GamePanel;
+import Controller.GameController;
 
 public class Main {
 
     public static void main(String[] args) {
-
-        GameFrame frame = new GameFrame();
+        GamePanel panel = new GamePanel(new GameController());
+        GameFrame frame = new GameFrame(panel);
 
 
     }
+
+
 }

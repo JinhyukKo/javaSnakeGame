@@ -1,10 +1,11 @@
+package UI;
+
 import javax.swing.*;
 
 public class GameFrame extends JFrame {
     static final int boardWidth  = 600;
     static final int boardHeight = 600;
-    GameFrame(){
-        GamePanel panel = new GamePanel();
+    public GameFrame(GamePanel panel){
         this.add(panel);
         this.setTitle("Snake");
         this.setSize(boardWidth,boardHeight);
