@@ -53,7 +53,7 @@ public class GamePanel extends JPanel  implements ActionListener{
             drawScore(g);
         }
         else {
-            gameOver(g);
+            drawGameOver(g);
         }
 
     }
@@ -70,13 +70,13 @@ public class GamePanel extends JPanel  implements ActionListener{
     }
 
     private void drawScore(Graphics g){
-        g.setColor(Color.RED);
-        g.setFont(new Font("Ink Free",Font.BOLD,20));
-        FontMetrics metrics = getFontMetrics(g.getFont());
-        SCORE_MSG = "Score : " + controller.getApplesEaten();
-        g.drawString(SCORE_MSG,30,30);
+//        g.setColor(Color.RED);
+//        g.setFont(new Font("Ink Free",Font.BOLD,20));
+//        FontMetrics metrics = getFontMetrics(g.getFont());
+//        SCORE_MSG = "Score : " + controller.getApplesEaten();
+//        g.drawString(SCORE_MSG,30,30);
     }
-    private void gameOver(Graphics g){
+    private void drawGameOver(Graphics g){
         g.setColor(Color.RED);
         g.setFont(new Font("Ink Free",Font.BOLD,75));
         FontMetrics metrics = getFontMetrics(g.getFont());
@@ -87,7 +87,7 @@ public class GamePanel extends JPanel  implements ActionListener{
         FontMetrics metrics2 = getFontMetrics(g.getFont());
         g.drawString(SCORE_MSG,(SCREEN_WIDTH-metrics2.stringWidth(SCORE_MSG))/2,SCREEN_HEIGHT/4);
     }
-
+//    private void drawGameStart
     @Override
     public void actionPerformed(ActionEvent e) {
         if(controller.isRunning()) {

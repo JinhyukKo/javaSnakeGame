@@ -2,6 +2,8 @@ package Entity;
 
 
 import java.awt.*;
+import java.util.Random;
+
 import domain.Configs;
 import domain.Direction;
 
@@ -12,7 +14,7 @@ public class Snake   {
     static final int DELAY= Configs.DELAY;
     static final int SNAKE_HEAD = Configs.SNAKE_HEAD;
     static final int GAME_UNITS = Configs.GAME_UNITS;
-
+    Random random = new Random();
 
     public int bodyParts = 6;
     int[] x;
@@ -57,11 +59,11 @@ public class Snake   {
     public void draw(Graphics g) {
         for (int i = 0; i < bodyParts; i++) {
             if (i == SNAKE_HEAD) {
-                g.setColor(Color.GREEN);
+                g.setColor(Color.BLUE);
                 g.fillRect(x[i], y[i], UNIT_SIZE, UNIT_SIZE);
                 System.out.println("repaint");
             } else {
-                g.setColor(Color.BLUE);
+                g.setColor(new Color(random.nextInt(255),random.nextInt(255),random.nextInt(255)));
                 g.fillRect(x[i], y[i], UNIT_SIZE, UNIT_SIZE);
             }
         }
