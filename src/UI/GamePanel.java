@@ -19,6 +19,9 @@ public class GamePanel extends JPanel  implements ActionListener{
     static final int SNAKE_HEAD = Configs.SNAKE_HEAD;
     static final int GAME_UNITS = Configs.GAME_UNITS;
 
+    String SCORE_MSG = "Score : " + 0;
+
+    final String GAME_OVER_MSG = "Game Over";
     Timer timer;
     GameController controller;
 
@@ -32,6 +35,9 @@ public class GamePanel extends JPanel  implements ActionListener{
         this.addKeyListener(new MyKeyAdapter());
         this.controller= controller;
 
+        startGame();
+    }
+    private void startGame (){
         timer = new Timer(Configs.DELAY,this);
         timer.start();
         controller.startGame();
@@ -40,13 +46,22 @@ public class GamePanel extends JPanel  implements ActionListener{
     @Override
     public void paintComponent(Graphics g){
         super.paintComponent(g);
-        g.setColor(Color.darkGray);
-        drawLine(g);
-        controller.getApple().draw(g);
-        controller.getSnake().draw(g);
+        if(controller.isRunning()){
+            drawLine(g);
+            controller.getApple().draw(g);
+            controller.getSnake().draw(g);
+            drawScore(g);
+        }
+        else {
+            gameOver(g);
+        }
+
     }
 
-    public void drawLine(Graphics g){
+    private void drawLine(Graphics g){
+
+
+        g.setColor(Color.darkGray);
         for(int i =0 ; i < SCREEN_HEIGHT/UNIT_SIZE;i++){
             g.drawLine(i*UNIT_SIZE,0,i*UNIT_SIZE,SCREEN_HEIGHT);
             g.drawLine(0,i*UNIT_SIZE,SCREEN_WIDTH,i*UNIT_SIZE);
@@ -54,9 +69,23 @@ public class GamePanel extends JPanel  implements ActionListener{
 
     }
 
+    private void drawScore(Graphics g){
+        g.setColor(Color.RED);
+        g.setFont(new Font("Ink Free",Font.BOLD,20));
+        FontMetrics metrics = getFontMetrics(g.getFont());
+        SCORE_MSG = "Score : " + controller.getApplesEaten();
+        g.drawString(SCORE_MSG,30,30);
+    }
+    private void gameOver(Graphics g){
+        g.setColor(Color.RED);
+        g.setFont(new Font("Ink Free",Font.BOLD,75));
+        FontMetrics metrics = getFontMetrics(g.getFont());
+        g.drawString(GAME_OVER_MSG,(SCREEN_WIDTH-metrics.stringWidth(GAME_OVER_MSG) )/2,SCREEN_HEIGHT/2);
 
-    public void gameOver(Graphics g){
-
+        g.setColor(Color.RED);
+        g.setFont(new Font("Ink Free",Font.BOLD,20));
+        FontMetrics metrics2 = getFontMetrics(g.getFont());
+        g.drawString(SCORE_MSG,(SCREEN_WIDTH-metrics2.stringWidth(SCORE_MSG))/2,SCREEN_HEIGHT/4);
     }
 
     @Override
@@ -73,29 +102,8 @@ public class GamePanel extends JPanel  implements ActionListener{
     public class MyKeyAdapter extends KeyAdapter{
         @Override
         public void keyPressed(KeyEvent e) {
-            switch(e.getKeyCode()){
-                case KeyEvent.VK_LEFT:
-                    if(controller.getSnake().getDirection()!=Direction.RIGHT){
-                        controller.getSnake().setDirection(Direction.LEFT);
-                    }
-                    break;
-                case KeyEvent.VK_RIGHT:
-                    if(controller.getSnake().getDirection()!=Direction.LEFT){
-                        controller.getSnake().setDirection(Direction.RIGHT);
-                    }
-                    break;
-                case KeyEvent.VK_UP:
-                    if(controller.getSnake().getDirection()!=Direction.DOWN){
-                        controller.getSnake().setDirection(Direction.UP);
-                    }
-                    break;
-                case KeyEvent.VK_DOWN:
-                    if(controller.getSnake().getDirection()!=Direction.UP){
-                        controller.getSnake().setDirection(Direction.DOWN);
-                    }
-                    break;
+            controller.moveSnake(e);
 
-            }
         }
     }
 }
