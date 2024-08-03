@@ -66,6 +66,7 @@ public class GameController
             case KeyEvent.VK_LEFT:
                 if(snake.getDirection()!= Direction.RIGHT){
                     snake.setDirection(Direction.LEFT);
+
                 }
                 break;
             case KeyEvent.VK_RIGHT:
@@ -81,6 +82,7 @@ public class GameController
             case KeyEvent.VK_DOWN:
                 if(snake.getDirection()!=Direction.UP){
                     snake.setDirection(Direction.DOWN);
+                    System.out.println("down");
                 }
                 break;
 

@@ -3,28 +3,28 @@ import Entity.Snake;
 import UI.GameFrame;
 import UI.GamePanel;
 import Controller.GameController;
+import UI.MainPanel;
 import UI.StartPanel;
 import domain.*;
 
+import java.awt.*;
 
-public class Main {
+
+public class Main implements Mode {
 
 
     public static void main(String[] args) {
-        Mode mode = Mode.START;
         GameController controller = new GameController();
-        GameFrame frame;
-        GamePanel gamePanel = new GamePanel(controller);
-        StartPanel startPanel = new StartPanel(mode);
-        switch (mode){
-            case START:
-                frame = new GameFrame(startPanel);
-                break;
-            case GAME:
-                frame = new GameFrame(gamePanel);
-                break;
 
-        }
+        MainPanel mainPanel = new MainPanel();
+        GamePanel gamePanel = new GamePanel(mainPanel,controller);
+        StartPanel startPanel = new StartPanel(mainPanel,gamePanel);
+
+        mainPanel.addPanel(startPanel,START);
+        mainPanel.addPanel(gamePanel,GAME);
+        GameFrame frame = new GameFrame(mainPanel);
+
+
 
 
 

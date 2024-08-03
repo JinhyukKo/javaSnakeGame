@@ -1,7 +1,7 @@
 package domain;
 
-public enum Mode{
-    START,
-    GAME,
-    END
+public interface Mode{
+    String START = "START";
+    String GAME = "GAME";
+    String END = "END";
 }

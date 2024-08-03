@@ -10,7 +10,9 @@ import Entity.Snake;
 import domain.Configs;
 
 import domain.Direction;
-public class GamePanel extends JPanel  implements ActionListener{
+import domain.Mode;
+
+public class GamePanel extends JPanel  implements ActionListener, Mode {
 
     static final int SCREEN_WIDTH = Configs.SCREEN_WIDTH;
     static final int SCREEN_HEIGHT = Configs.SCREEN_HEIGHT;
@@ -25,19 +27,19 @@ public class GamePanel extends JPanel  implements ActionListener{
     Timer timer;
     GameController controller;
 
+    MainPanel mainPanel;
 
 
-
-    public GamePanel(GameController controller){
+    public GamePanel(MainPanel mainPanel,GameController controller){
         this.setPreferredSize(new Dimension(SCREEN_WIDTH,SCREEN_HEIGHT));
         this.setBackground(Color.black);
         this.setFocusable(true);
         this.addKeyListener(new MyKeyAdapter());
         this.controller= controller;
-
-        startGame();
+        this.mainPanel=mainPanel;
     }
-    private void startGame (){
+    void startGame (){
+        mainPanel.switchToGamePanel();
         timer = new Timer(Configs.DELAY,this);
         timer.start();
         controller.startGame();

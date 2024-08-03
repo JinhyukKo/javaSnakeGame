@@ -4,44 +4,43 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import Controller.GameController;
 import domain.Mode;
 import domain.Configs;
-public class StartPanel extends JPanel implements ActionListener {
+public class StartPanel extends JPanel implements ActionListener ,Mode{
     JButton button;
-
-    Mode mode;
-    public StartPanel(Mode mode){
-        JLabel label = new JLabel("Snake Game");
-        label.setFont(new Font("new Ink",Font.BOLD,40));
-        int textSize = label.getFontMetrics(label.getFont()).stringWidth(label.getText());
-//        label.setVerticalAlignment(JLabel.TOP);
-//        label.setHorizontalAlignment(JLabel.CENTER);
-        label.setBounds((Configs.SCREEN_WIDTH-textSize)/2,0,Configs.SCREEN_WIDTH,Configs.SCREEN_HEIGHT/2);
-        label.setForeground(Color.RED);
-
-
+    MainPanel mainPanel;
+    GamePanel gamePanel;
+    public StartPanel(MainPanel mainPanel, GamePanel gamePanel){
+        this.mainPanel=mainPanel;
+        this.createText();
         this.createStartButton();
-
-
-
-        this.mode=mode;
-
-
-
-        this.setPreferredSize(new Dimension(Configs.SCREEN_WIDTH,Configs.SCREEN_HEIGHT));
-        this.setBackground(Color.BLACK);
-//        this.setBounds(0,100,Configs.SCREEN_WIDTH,Configs.SCREEN_HEIGHT-200);
-        this.setLayout(null); // Set layout to BorderLayout
-        this.setFocusable(true);
-        this.add(label);
-        this.add(button);
-
+        this.createScreen();
+        this.gamePanel=gamePanel;
     }
     @Override
     public void actionPerformed(ActionEvent e){
         if(e.getSource()==button){
-            mode = Mode.GAME;
+            gamePanel.startGame();
+            mainPanel.showPanel(GAME);
         }
+    }
+    private void createText(){
+        JLabel label = new JLabel("Snake Game");
+        label.setFont(new Font("new Ink",Font.BOLD,40));
+        int textSize = label.getFontMetrics(label.getFont()).stringWidth(label.getText());
+        label.setBounds((Configs.SCREEN_WIDTH-textSize)/2,0,Configs.SCREEN_WIDTH,Configs.SCREEN_HEIGHT/2);
+        label.setForeground(Color.RED);
+        this.add(label);
+    }
+    private void createScreen(){
+        this.setPreferredSize(new Dimension(Configs.SCREEN_WIDTH,Configs.SCREEN_HEIGHT));
+        this.setBackground(Color.BLACK);
+        this.setLayout(null); // Set layout to BorderLayout
+        this.setFocusable(true);
+
+
     }
     private void createStartButton(){
         button = new JButton();
@@ -60,6 +59,7 @@ public class StartPanel extends JPanel implements ActionListener {
         button.setContentAreaFilled(false); // Removes background
         button.setBorderPainted(false); // Removes border
         button.setOpaque(false); // Ensures opacity is turned off
+        this.add(button);
 
     }
 }
