@@ -19,7 +19,7 @@ A simple implementation of the classic Snake game using Java's Swing library. Th
 1. **Clone the Repository**:
 
    ```bash
-   git clone https://github.com/yourusername/snake-game.git
+   git clone https://github.com/jinhyukko/javaSnakeGame.git
    cd snake-game
 
 ![Screenshot 2024-08-03 at 12 06 01 PM](https://github.com/user-attachments/assets/7785ec8d-8f59-43bd-88fa-38fd5005ebff)
