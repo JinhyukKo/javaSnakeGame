@@ -4,20 +4,25 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.*;
 
+import Controller.NetworkController;
 import Controller.GameController;
 import domain.Mode;
 import domain.Configs;
-public class StartPanel extends JPanel implements ActionListener ,Mode{
+public class StartPanel extends JPanel implements ActionListener ,Mode {
     JButton button;
     MainPanel mainPanel;
     GamePanel gamePanel;
-    public StartPanel(MainPanel mainPanel, GamePanel gamePanel){
+
+    public StartPanel(MainPanel mainPanel, GamePanel gamePanel) throws Exception{
         this.mainPanel=mainPanel;
         this.createText();
         this.createStartButton();
         this.createScreen();
         this.gamePanel=gamePanel;
+        NetworkController net = new NetworkController();
+
     }
     @Override
     public void actionPerformed(ActionEvent e){

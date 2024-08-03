@@ -13,7 +13,7 @@ import java.awt.*;
 public class Main implements Mode {
 
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         GameController controller = new GameController();
 
         MainPanel mainPanel = new MainPanel();
