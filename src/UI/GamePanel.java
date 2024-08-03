@@ -26,8 +26,8 @@ public class GamePanel extends JPanel  implements ActionListener, Mode {
     final String GAME_OVER_MSG = "Game Over";
     Timer timer;
     GameController controller;
-
     MainPanel mainPanel;
+    JButton button ;
 
 
     public GamePanel(MainPanel mainPanel,GameController controller){
@@ -37,10 +37,11 @@ public class GamePanel extends JPanel  implements ActionListener, Mode {
         this.addKeyListener(new MyKeyAdapter());
         this.controller= controller;
         this.mainPanel=mainPanel;
+        button = new JButton("Redo");
+        timer = new Timer(Configs.DELAY,this);
     }
     void startGame (){
         mainPanel.switchToGamePanel();
-        timer = new Timer(Configs.DELAY,this);
         timer.start();
         controller.startGame();
     }
@@ -53,29 +54,29 @@ public class GamePanel extends JPanel  implements ActionListener, Mode {
             controller.getApple().draw(g);
             controller.getSnake().draw(g);
             drawScore(g);
+            button.setVisible(false);
+
         }
         else {
             drawGameOver(g);
+            drawRedoButton();
         }
 
     }
 
     private void drawLine(Graphics g){
-
-
         g.setColor(Color.darkGray);
         for(int i =0 ; i < SCREEN_HEIGHT/UNIT_SIZE;i++){
             g.drawLine(i*UNIT_SIZE,0,i*UNIT_SIZE,SCREEN_HEIGHT);
             g.drawLine(0,i*UNIT_SIZE,SCREEN_WIDTH,i*UNIT_SIZE);
         }
-
     }
 
     private void drawScore(Graphics g){
         g.setColor(Color.RED);
         g.setFont(new Font("Ink Free",Font.BOLD,20));
         FontMetrics metrics = getFontMetrics(g.getFont());
-        SCORE_MSG = "Score : " + controller.getApplesEaten();
+        SCORE_MSG = "Score : " + controller.getScore();
         g.drawString(SCORE_MSG,30,30);
     }
     private void drawGameOver(Graphics g){
@@ -88,6 +89,28 @@ public class GamePanel extends JPanel  implements ActionListener, Mode {
         g.setFont(new Font("Ink Free",Font.BOLD,20));
         FontMetrics metrics2 = getFontMetrics(g.getFont());
         g.drawString(SCORE_MSG,(SCREEN_WIDTH-metrics2.stringWidth(SCORE_MSG))/2,SCREEN_HEIGHT/4);
+
+
+
+
+    }
+    private void drawRedoButton(){
+        button.setVisible(true);
+        button.setFont(new Font("new Ink",Font.BOLD,30));
+        FontMetrics buttonMetrics = button.getFontMetrics(button.getFont());
+        int buttonWidth = buttonMetrics.stringWidth(button.getText()) +50; // Adding some padding
+        int buttonHeight = buttonMetrics.getHeight(); // Adding some padding
+        button.setBounds((Configs.SCREEN_WIDTH - buttonWidth) / 2,
+                (Configs.SCREEN_HEIGHT - buttonHeight) / 4 *3 ,
+                Configs.SCREEN_WIDTH, buttonHeight);
+        button.addActionListener(this);
+        button.setSize(new Dimension(buttonWidth,buttonHeight));
+        button.setFocusable(false);
+        button.setForeground(Color.WHITE);
+        button.setContentAreaFilled(false); // Removes background
+        button.setBorderPainted(false); // Removes border
+        button.setOpaque(false); // Ensures opacity is turned off
+        this.add(button);
     }
 //    private void drawGameStart
     @Override
@@ -95,8 +118,14 @@ public class GamePanel extends JPanel  implements ActionListener, Mode {
         if(controller.isRunning()) {
             controller.getSnake().move();
             controller.checkApple();
-            controller.checkCollisions();
+            if(!controller.checkCollisions()){
+                timer.stop();
+            };
             repaint();
+        } if(e.getSource()==button){
+            System.out.println("hello");
+            controller.setScore(0);
+            startGame();
         }
     }
 

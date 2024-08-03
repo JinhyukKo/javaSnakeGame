@@ -13,16 +13,22 @@ public class GameController
     Apple apple ;
     Snake snake;
 
-    int applesEaten=0;
+
+    int score=0;
+
+
 
 
     boolean running = false;
     public GameController(){}
 
 
+    public void setScore(int score) {
+        this.score = score;
+    }
 
-    public int getApplesEaten() {
-        return applesEaten;
+    public int getScore() {
+        return score;
     }
 
     public void startGame(){
@@ -33,6 +39,9 @@ public class GameController
     public boolean isRunning() {
         return running;
     }
+    public void setRunning(boolean running) {
+        this.running = running;
+    }
     public Snake getSnake() {
         return snake;
     }
@@ -41,12 +50,12 @@ public class GameController
     }
     public void checkApple(){
         if((snake.getHeadX() == apple.getX())&& (snake.getHeadY()== apple.getY())){
-            applesEaten++;
+            score++;
             snake.increaseBodyParts();
             apple.generateNewApple();
         }
     }
-    public void checkCollisions(){
+    public boolean checkCollisions(){
 //         check if head collides with body
         for(int i =snake.bodyParts; i>0; i--){
             if ((snake.getHeadX()==snake.getBodyX(i))&&(snake.getHeadY())==snake.getBodyY(i)){
@@ -57,9 +66,7 @@ public class GameController
         if(snake.getHeadX()<0||snake.getHeadX()> Configs.SCREEN_WIDTH||snake.getHeadY()<0 || snake.getHeadY() >Configs.SCREEN_WIDTH){
             running = false;
         }
-//        if(!running){
-//            timer.stop();
-//        }
+       return running;
     }
     public void moveSnake(KeyEvent e) {
         switch(e.getKeyCode()){
