@@ -72,11 +72,11 @@ public class GamePanel extends JPanel  implements ActionListener, Mode {
     }
 
     private void drawScore(Graphics g){
-//        g.setColor(Color.RED);
-//        g.setFont(new Font("Ink Free",Font.BOLD,20));
-//        FontMetrics metrics = getFontMetrics(g.getFont());
-//        SCORE_MSG = "Score : " + controller.getApplesEaten();
-//        g.drawString(SCORE_MSG,30,30);
+        g.setColor(Color.RED);
+        g.setFont(new Font("Ink Free",Font.BOLD,20));
+        FontMetrics metrics = getFontMetrics(g.getFont());
+        SCORE_MSG = "Score : " + controller.getApplesEaten();
+        g.drawString(SCORE_MSG,30,30);
     }
     private void drawGameOver(Graphics g){
         g.setColor(Color.RED);
