@@ -1,13 +1,10 @@
-import Entity.Apple;
-import Entity.Snake;
+package main;
 import UI.GameFrame;
 import UI.GamePanel;
 import Controller.GameController;
 import UI.MainPanel;
 import UI.StartPanel;
 import domain.*;
-
-import java.awt.*;
 
 
 public class Main implements Mode {
