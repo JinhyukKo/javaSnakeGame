@@ -26,3 +26,8 @@ A simple implementation of the classic Snake game using Java's Swing library. Th
 ![Screenshot 2024-08-03 at 12 06 34 PM](https://github.com/user-attachments/assets/771b154b-ba50-424b-824b-fa06e2c5044f)
 ![Screenshot 2024-08-03 at 12 06 09 PM](https://github.com/user-attachments/assets/1b7ab797-ae28-4ba4-840c-f6d10fde5a78)
 
+
+# Trouble Shooting
+1. Deployment with JAR file
+MAVEN ?
+
